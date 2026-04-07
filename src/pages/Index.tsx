@@ -4,12 +4,15 @@ import QuestionCard from "@/components/QuestionCard";
 import ResultsDashboard from "@/components/ResultsDashboard";
 import { QUESTIONS, calculateResults, Results } from "@/lib/questions";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Cog, Handshake, KeyRound, BarChart3, Users, Monitor } from "lucide-react";
 
 const Index = () => {
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [results, setResults] = useState<Results | null>(null);
   const [started, setStarted] = useState(false);
+  const [businessName, setBusinessName] = useState("");
+  const [businessNameConfirmed, setBusinessNameConfirmed] = useState(false);
 
   const handleSelect = (questionId: number, points: number) => {
     setAnswers((prev) => ({ ...prev, [questionId]: points }));
@@ -26,6 +29,8 @@ const Index = () => {
     setAnswers({});
     setResults(null);
     setStarted(false);
+    setBusinessName("");
+    setBusinessNameConfirmed(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -33,7 +38,7 @@ const Index = () => {
     return (
       <div className="min-h-screen bg-background">
         <Navbar />
-        <ResultsDashboard results={results} onRetake={handleRetake} />
+        <ResultsDashboard results={results} onRetake={handleRetake} businessName={businessName} />
       </div>
     );
   }
@@ -74,6 +79,39 @@ const Index = () => {
               </div>
             ))}
           </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (started && !businessNameConfirmed) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Navbar />
+        <div className="mx-auto max-w-md px-4 py-20 text-center">
+          <h1 className="mb-2 text-2xl font-black tracking-tight text-foreground">
+            Before we begin
+          </h1>
+          <p className="mb-8 text-sm text-muted-foreground">
+            We'll use this to personalise your results.
+          </p>
+          <div className="text-left space-y-2 mb-8">
+            <label className="text-sm font-medium text-foreground">What is your business called?</label>
+            <Input
+              value={businessName}
+              onChange={(e) => setBusinessName(e.target.value)}
+              placeholder="e.g. Acme Consulting"
+              className="w-full"
+            />
+          </div>
+          <Button
+            size="lg"
+            onClick={() => setBusinessNameConfirmed(true)}
+            disabled={!businessName.trim()}
+            className="bg-primary hover:bg-primary/90 text-primary-foreground px-10 py-6 text-base font-bold rounded-lg disabled:opacity-40"
+          >
+            Continue
+          </Button>
         </div>
       </div>
     );
