@@ -112,7 +112,7 @@ const Index = () => {
             Have you created a business that is sellable whether you want to or not?
           </h1>
           <p className="mb-8 text-lg leading-relaxed text-muted-foreground">
-            Answer 12 diagnostic questions across the six pillars that drive transferable business value. Get your score, see your profile, and discover where to focus.
+            Answer 12 questions across the six pillars that drive transferable business value. Get your score and discover where to focus.
           </p>
           <Button
             size="lg"
