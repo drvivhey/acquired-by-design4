@@ -7,13 +7,14 @@ import { Button } from "@/components/ui/button";
 interface Props {
   results: Results;
   onRetake: () => void;
+  businessName?: string;
 }
 
-const ResultsDashboard = ({ results, onRetake }: Props) => (
+const ResultsDashboard = ({ results, onRetake, businessName }: Props) => (
   <div className="mx-auto max-w-4xl space-y-10 px-4 py-12">
     <div className="text-center space-y-2">
       <h1 className="text-3xl font-black tracking-tight text-foreground">
-        Your business value index
+        {businessName ? `Your results for ${businessName}` : "Your business value index"}
       </h1>
       <p className="text-muted-foreground">{results.band.description}</p>
     </div>
