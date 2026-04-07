@@ -10,6 +10,8 @@ const Index = () => {
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [results, setResults] = useState<Results | null>(null);
   const [started, setStarted] = useState(false);
+  const [businessName, setBusinessName] = useState("");
+  const [businessNameConfirmed, setBusinessNameConfirmed] = useState(false);
 
   const handleSelect = (questionId: number, points: number) => {
     setAnswers((prev) => ({ ...prev, [questionId]: points }));
