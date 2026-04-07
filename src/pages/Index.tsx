@@ -1,16 +1,114 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import Navbar from "@/components/Navbar";
+import QuestionCard from "@/components/QuestionCard";
+import ResultsDashboard from "@/components/ResultsDashboard";
+import { QUESTIONS, calculateResults, Results } from "@/lib/questions";
+import { Button } from "@/components/ui/button";
 
-// IMPORTANT: Fully REPLACE this with your own code
-const PlaceholderIndex = () => {
-  // PLACEHOLDER: Replace this entire return statement with the user's app.
-  // The inline background color is intentionally not part of the design system.
+const Index = () => {
+  const [answers, setAnswers] = useState<Record<number, number>>({});
+  const [results, setResults] = useState<Results | null>(null);
+  const [started, setStarted] = useState(false);
+
+  const handleSelect = (questionId: number, points: number) => {
+    setAnswers((prev) => ({ ...prev, [questionId]: points }));
+  };
+
+  const allAnswered = QUESTIONS.every((q) => answers[q.id] !== undefined);
+
+  const handleSubmit = () => {
+    setResults(calculateResults(answers));
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleRetake = () => {
+    setAnswers({});
+    setResults(null);
+    setStarted(false);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  if (results) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Navbar />
+        <ResultsDashboard results={results} onRetake={handleRetake} />
+      </div>
+    );
+  }
+
+  if (!started) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Navbar />
+        <div className="mx-auto max-w-2xl px-4 py-20 text-center">
+          <div className="mb-6 inline-flex items-center rounded-full border border-border bg-muted/50 px-4 py-1.5 text-xs font-medium text-muted-foreground">
+            The PROFIT Framework™
+          </div>
+          <h1 className="mb-4 text-4xl font-black tracking-tight text-foreground md:text-5xl">
+            How Valuable Is Your Business — Really?
+          </h1>
+          <p className="mb-8 text-lg leading-relaxed text-muted-foreground">
+            Answer 12 diagnostic questions across the six pillars that drive transferable business value. Get your score, see your profile, and discover where to focus.
+          </p>
+          <Button
+            size="lg"
+            onClick={() => setStarted(true)}
+            className="bg-primary hover:bg-primary/90 text-primary-foreground px-10 py-6 text-base font-bold rounded-lg"
+          >
+            Start Your Assessment
+          </Button>
+          <div className="mt-12 grid grid-cols-3 md:grid-cols-6 gap-4 text-center">
+            {["⚙️ Processes", "🤝 Relationships", "🔑 Owner Independence", "📊 Financials", "👥 Independent Team", "💻 Technology"].map((p) => (
+              <div key={p} className="text-xs font-medium text-muted-foreground">{p}</div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="flex min-h-screen items-center justify-center" style={{ backgroundColor: '#fcfbf8' }}>
-      <img data-lovable-blank-page-placeholder="REMOVE_THIS" src="/placeholder.svg" alt="Your app will live here!" />
+    <div className="min-h-screen bg-background">
+      <Navbar />
+      <div className="mx-auto max-w-2xl px-4 py-10">
+        <div className="mb-8">
+          <h1 className="text-2xl font-black tracking-tight text-foreground">Business Value Diagnostic</h1>
+          <p className="mt-1 text-sm text-muted-foreground">
+            {Object.keys(answers).length} of {QUESTIONS.length} answered
+          </p>
+          <div className="mt-3 h-1.5 w-full rounded-full bg-muted">
+            <div
+              className="h-1.5 rounded-full bg-primary transition-all duration-300"
+              style={{ width: `${(Object.keys(answers).length / QUESTIONS.length) * 100}%` }}
+            />
+          </div>
+        </div>
+
+        <div className="space-y-4">
+          {QUESTIONS.map((q) => (
+            <QuestionCard
+              key={q.id}
+              question={q}
+              selectedPoints={answers[q.id]}
+              onSelect={handleSelect}
+            />
+          ))}
+        </div>
+
+        <div className="mt-8 text-center">
+          <Button
+            size="lg"
+            onClick={handleSubmit}
+            disabled={!allAnswered}
+            className="bg-primary hover:bg-primary/90 text-primary-foreground px-10 py-6 text-base font-bold rounded-lg disabled:opacity-40"
+          >
+            View My Results
+          </Button>
+        </div>
+      </div>
     </div>
   );
 };
-
-const Index = PlaceholderIndex;
 
 export default Index;
