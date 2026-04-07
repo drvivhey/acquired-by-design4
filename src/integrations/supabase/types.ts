@@ -14,7 +14,54 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      bvi_responses: {
+        Row: {
+          band_name: string
+          business_name: string
+          created_at: string
+          email: string
+          first_name: string
+          id: string
+          score_financials: number
+          score_independent_team: number
+          score_owner_independence: number
+          score_processes: number
+          score_relationships: number
+          score_technology: number
+          total_score: number
+        }
+        Insert: {
+          band_name: string
+          business_name: string
+          created_at?: string
+          email: string
+          first_name: string
+          id?: string
+          score_financials?: number
+          score_independent_team?: number
+          score_owner_independence?: number
+          score_processes?: number
+          score_relationships?: number
+          score_technology?: number
+          total_score: number
+        }
+        Update: {
+          band_name?: string
+          business_name?: string
+          created_at?: string
+          email?: string
+          first_name?: string
+          id?: string
+          score_financials?: number
+          score_independent_team?: number
+          score_owner_independence?: number
+          score_processes?: number
+          score_relationships?: number
+          score_technology?: number
+          total_score?: number
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
