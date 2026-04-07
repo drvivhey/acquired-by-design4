@@ -109,7 +109,7 @@ const Index = () => {
             The PROFIT Framework
           </div>
           <h1 className="mb-4 text-4xl font-black tracking-tight text-foreground md:text-5xl">
-            What is your business actually worth to a buyer?
+            Have you created a business that is sellable whether you want to or not?
           </h1>
           <p className="mb-8 text-lg leading-relaxed text-muted-foreground">
             Answer 12 diagnostic questions across the six pillars that drive transferable business value. Get your score, see your profile, and discover where to focus.
