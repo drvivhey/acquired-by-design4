@@ -4,6 +4,7 @@ import QuestionCard from "@/components/QuestionCard";
 import ResultsDashboard from "@/components/ResultsDashboard";
 import { QUESTIONS, calculateResults, Results } from "@/lib/questions";
 import { Button } from "@/components/ui/button";
+import { Cog, Handshake, KeyRound, BarChart3, Users, Monitor } from "lucide-react";
 
 const Index = () => {
   const [answers, setAnswers] = useState<Record<number, number>>({});
@@ -59,8 +60,18 @@ const Index = () => {
             Start your assessment
           </Button>
           <div className="mt-12 grid grid-cols-3 md:grid-cols-6 gap-4 text-center">
-            {["⚙️ Processes", "🤝 Relationships", "🔑 Owner independence", "📊 Financials", "👥 Independent team", "💻 Technology"].map((p) => (
-              <div key={p} className="text-xs font-medium text-muted-foreground">{p}</div>
+            {[
+              { icon: Cog, label: "Processes" },
+              { icon: Handshake, label: "Relationships" },
+              { icon: KeyRound, label: "Owner independence" },
+              { icon: BarChart3, label: "Financials" },
+              { icon: Users, label: "Independent team" },
+              { icon: Monitor, label: "Technology" },
+            ].map((p) => (
+              <div key={p.label} className="flex flex-col items-center gap-1 text-xs font-medium text-muted-foreground">
+                <p.icon size={18} className="text-primary" />
+                {p.label}
+              </div>
             ))}
           </div>
         </div>
