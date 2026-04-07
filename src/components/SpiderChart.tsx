@@ -16,7 +16,7 @@ const SpiderChart = ({ pillarScores }: Props) => {
     <div className="w-full max-w-lg mx-auto">
       <ResponsiveContainer width="100%" height={350}>
         <RadarChart cx="50%" cy="50%" outerRadius="70%" data={data}>
-          <PolarGrid stroke="hsl(186, 30%, 88%)" />
+          <PolarGrid stroke="hsl(185, 30%, 88%)" />
           <PolarAngleAxis
             dataKey="subject"
             tick={{ fill: "hsl(192, 42%, 15%)", fontSize: 12, fontFamily: "Satoshi, sans-serif", fontWeight: 500 }}
@@ -25,8 +25,8 @@ const SpiderChart = ({ pillarScores }: Props) => {
           <Radar
             name="Score"
             dataKey="score"
-            stroke="hsl(189, 72%, 30%)"
-            fill="hsl(189, 72%, 30%)"
+            stroke="hsl(189, 69%, 30%)"
+            fill="hsl(189, 69%, 30%)"
             fillOpacity={0.2}
             strokeWidth={2}
           />
