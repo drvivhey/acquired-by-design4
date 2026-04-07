@@ -43,10 +43,10 @@ const Index = () => {
         <Navbar />
         <div className="mx-auto max-w-2xl px-4 py-20 text-center">
           <div className="mb-6 inline-flex items-center rounded-full border border-border bg-muted/50 px-4 py-1.5 text-xs font-medium text-muted-foreground">
-            The PROFIT Framework™
+            The PROFIT Framework
           </div>
           <h1 className="mb-4 text-4xl font-black tracking-tight text-foreground md:text-5xl">
-            How Valuable Is Your Business — Really?
+            What is your business actually worth to a buyer?
           </h1>
           <p className="mb-8 text-lg leading-relaxed text-muted-foreground">
             Answer 12 diagnostic questions across the six pillars that drive transferable business value. Get your score, see your profile, and discover where to focus.
@@ -56,10 +56,10 @@ const Index = () => {
             onClick={() => setStarted(true)}
             className="bg-primary hover:bg-primary/90 text-primary-foreground px-10 py-6 text-base font-bold rounded-lg"
           >
-            Start Your Assessment
+            Start your assessment
           </Button>
           <div className="mt-12 grid grid-cols-3 md:grid-cols-6 gap-4 text-center">
-            {["⚙️ Processes", "🤝 Relationships", "🔑 Owner Independence", "📊 Financials", "👥 Independent Team", "💻 Technology"].map((p) => (
+            {["⚙️ Processes", "🤝 Relationships", "🔑 Owner independence", "📊 Financials", "👥 Independent team", "💻 Technology"].map((p) => (
               <div key={p} className="text-xs font-medium text-muted-foreground">{p}</div>
             ))}
           </div>
@@ -73,7 +73,7 @@ const Index = () => {
       <Navbar />
       <div className="mx-auto max-w-2xl px-4 py-10">
         <div className="mb-8">
-          <h1 className="text-2xl font-black tracking-tight text-foreground">Business Value Diagnostic</h1>
+          <h1 className="text-2xl font-black tracking-tight text-foreground">Business value diagnostic</h1>
           <p className="mt-1 text-sm text-muted-foreground">
             {Object.keys(answers).length} of {QUESTIONS.length} answered
           </p>
@@ -103,7 +103,7 @@ const Index = () => {
             disabled={!allAnswered}
             className="bg-primary hover:bg-primary/90 text-primary-foreground px-10 py-6 text-base font-bold rounded-lg disabled:opacity-40"
           >
-            View My Results
+            View my results
           </Button>
         </div>
       </div>

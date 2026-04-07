@@ -9,9 +9,9 @@ export interface Question {
 export const PILLARS = [
   { key: "processes", label: "Processes", icon: "⚙️" },
   { key: "relationships", label: "Relationships", icon: "🤝" },
-  { key: "ownerIndependence", label: "Owner Independence", icon: "🔑" },
+  { key: "ownerIndependence", label: "Owner independence", icon: "🔑" },
   { key: "financials", label: "Financials", icon: "📊" },
-  { key: "independentTeam", label: "Independent Team", icon: "👥" },
+  { key: "independentTeam", label: "Independent team", icon: "👥" },
   { key: "technology", label: "Technology", icon: "💻" },
 ];
 
@@ -61,7 +61,7 @@ export const QUESTIONS: Question[] = [
   },
   {
     id: 5,
-    pillar: "Owner Independence",
+    pillar: "Owner independence",
     pillarKey: "ownerIndependence",
     text: "If you were forced to step away for 30 days tomorrow, would your sales engine continue to close new deals without you?",
     options: [
@@ -72,7 +72,7 @@ export const QUESTIONS: Question[] = [
   },
   {
     id: 6,
-    pillar: "Owner Independence",
+    pillar: "Owner independence",
     pillarKey: "ownerIndependence",
     text: "During your last two weeks of planned absence, did your revenue pipeline remain stable or grow?",
     options: [
@@ -104,7 +104,7 @@ export const QUESTIONS: Question[] = [
   },
   {
     id: 9,
-    pillar: "Independent Team",
+    pillar: "Independent team",
     pillarKey: "independentTeam",
     text: "Do you have a second-in-command who could run the business in your absence?",
     options: [
@@ -115,7 +115,7 @@ export const QUESTIONS: Question[] = [
   },
   {
     id: 10,
-    pillar: "Independent Team",
+    pillar: "Independent team",
     pillarKey: "independentTeam",
     text: "If your 2 to 3 key people left, would the business collapse within 30 days?",
     options: [
@@ -165,10 +165,10 @@ export interface Results {
 }
 
 const BANDS = [
-  { min: 0, max: 40, label: "Fragile", color: "hsl(0, 84%, 60%)", description: "Your business is heavily dependent on you and vulnerable to disruption. Significant work is needed across multiple pillars." },
-  { min: 41, max: 60, label: "Owner-Centric", color: "hsl(40, 100%, 62%)", description: "Your business runs, but it revolves around you. There are clear opportunities to build transferable value." },
-  { min: 61, max: 80, label: "Scalable Asset", color: "hsl(173, 48%, 37%)", description: "You've built real business value. Fine-tuning specific pillars will move you toward investment-grade status." },
-  { min: 81, max: 100, label: "Investment Grade", color: "hsl(189, 72%, 30%)", description: "Your business operates independently and would attract premium valuations. Keep optimising and protecting this position." },
+  { min: 0, max: 40, label: "Fragile", color: "hsl(18, 100%, 61%)", description: "Your business is heavily dependent on you and vulnerable to disruption. Significant work is needed across multiple pillars." },
+  { min: 41, max: 60, label: "Owner-centric", color: "hsl(42, 100%, 62%)", description: "Your business runs, but it revolves around you. There are clear opportunities to build transferable value." },
+  { min: 61, max: 80, label: "Scalable asset", color: "hsl(177, 65%, 37%)", description: "You've built real business value. Fine-tuning specific pillars will move you toward investment-grade status." },
+  { min: 81, max: 100, label: "Investment grade", color: "hsl(189, 69%, 30%)", description: "Your business operates independently and would attract premium valuations. Keep optimising and protecting this position." },
 ];
 
 export function calculateResults(answers: Record<number, number>): Results {
@@ -191,7 +191,7 @@ export function getPillarSummary(key: string, percentage: number): string {
     processes: {
       high: "Your processes are well-documented and scalable. New team members can onboard with minimal friction.",
       mid: "Some processes exist but gaps remain. Formalising SOPs would significantly increase transferable value.",
-      low: "Delivery knowledge lives in people's heads. This is a critical vulnerability — start documenting immediately.",
+      low: "Delivery knowledge lives in people's heads. This is a critical vulnerability, start documenting immediately.",
     },
     relationships: {
       high: "Healthy client diversification and strong contractual foundations protect your revenue.",

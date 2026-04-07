@@ -27,7 +27,7 @@ const PillarCard = ({ pillar }: Props) => {
           href="#"
           className="mt-3 inline-block text-sm font-semibold text-secondary hover:text-primary transition-colors"
         >
-          Analyse my 8 Independence Sub-Drivers →
+          Analyse my 8 independence sub-drivers →
         </a>
       )}
     </div>

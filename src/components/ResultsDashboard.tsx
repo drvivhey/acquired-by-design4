@@ -13,7 +13,7 @@ const ResultsDashboard = ({ results, onRetake }: Props) => (
   <div className="mx-auto max-w-4xl space-y-10 px-4 py-12">
     <div className="text-center space-y-2">
       <h1 className="text-3xl font-black tracking-tight text-foreground">
-        Your Business Value Index
+        Your business value index
       </h1>
       <p className="text-muted-foreground">{results.band.description}</p>
     </div>
@@ -23,13 +23,13 @@ const ResultsDashboard = ({ results, onRetake }: Props) => (
       <RadialGauge score={results.normalizedScore} bandLabel={results.band.label} bandColor={results.band.color} />
     </div>
 
-    {/* Band Legend */}
+    {/* Band legend */}
     <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-center text-xs font-medium">
       {[
-        { label: "Fragile", range: "0–40", color: "hsl(0, 84%, 60%)" },
-        { label: "Owner-Centric", range: "41–60", color: "hsl(40, 100%, 62%)" },
-        { label: "Scalable Asset", range: "61–80", color: "hsl(173, 48%, 37%)" },
-        { label: "Investment Grade", range: "81–100", color: "hsl(189, 72%, 30%)" },
+        { label: "Fragile", range: "0\u201340", color: "hsl(18, 100%, 61%)" },
+        { label: "Owner-centric", range: "41\u201360", color: "hsl(42, 100%, 62%)" },
+        { label: "Scalable asset", range: "61\u201380", color: "hsl(177, 65%, 37%)" },
+        { label: "Investment grade", range: "81\u2013100", color: "hsl(189, 69%, 30%)" },
       ].map((b) => (
         <div key={b.label} className="flex items-center justify-center gap-2">
           <span className="h-3 w-3 rounded-full" style={{ backgroundColor: b.color }} />
@@ -38,15 +38,15 @@ const ResultsDashboard = ({ results, onRetake }: Props) => (
       ))}
     </div>
 
-    {/* Spider Chart */}
+    {/* Spider chart */}
     <div>
       <h2 className="mb-4 text-center text-xl font-bold text-foreground">
-        Your PROFIT Profile
+        Your PROFIT profile
       </h2>
       <SpiderChart pillarScores={results.pillarScores} />
     </div>
 
-    {/* Pillar Cards */}
+    {/* Pillar cards */}
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
       {results.pillarScores.map((p) => (
         <PillarCard key={p.key} pillar={p} />
@@ -60,13 +60,13 @@ const ResultsDashboard = ({ results, onRetake }: Props) => (
         className="bg-accent hover:bg-accent/90 text-accent-foreground px-8 py-6 text-base font-bold rounded-lg shadow-md"
         asChild
       >
-        <a href="https://calendly.com" target="_blank" rel="noopener noreferrer">
-          Book Your BVI Strategy Review
+        <a href="mailto:vivienne@wellspringexit.co.uk">
+          Book your BVI strategy review
         </a>
       </Button>
       <div>
         <button onClick={onRetake} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-          ← Retake Assessment
+          ← Retake assessment
         </button>
       </div>
     </div>
