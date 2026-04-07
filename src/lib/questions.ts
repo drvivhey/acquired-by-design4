@@ -7,12 +7,12 @@ export interface Question {
 }
 
 export const PILLARS = [
-  { key: "processes", label: "Processes", icon: "⚙️" },
-  { key: "relationships", label: "Relationships", icon: "🤝" },
-  { key: "ownerIndependence", label: "Owner independence", icon: "🔑" },
-  { key: "financials", label: "Financials", icon: "📊" },
-  { key: "independentTeam", label: "Independent team", icon: "👥" },
-  { key: "technology", label: "Technology", icon: "💻" },
+  { key: "processes", label: "Processes", icon: "Cog" },
+  { key: "relationships", label: "Relationships", icon: "Handshake" },
+  { key: "ownerIndependence", label: "Owner independence", icon: "KeyRound" },
+  { key: "financials", label: "Financials", icon: "BarChart3" },
+  { key: "independentTeam", label: "Independent team", icon: "Users" },
+  { key: "technology", label: "Technology", icon: "Monitor" },
 ];
 
 export const QUESTIONS: Question[] = [

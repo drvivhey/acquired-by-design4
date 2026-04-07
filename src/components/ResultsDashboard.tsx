@@ -57,11 +57,11 @@ const ResultsDashboard = ({ results, onRetake }: Props) => (
     <div className="text-center space-y-4 pt-4">
       <Button
         size="lg"
-        className="bg-accent hover:bg-accent/90 text-accent-foreground px-8 py-6 text-base font-bold rounded-lg shadow-md"
+        className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-base font-bold rounded-lg shadow-md"
         asChild
       >
-        <a href="mailto:vivienne@wellspringexit.co.uk">
-          Book your BVI strategy review
+        <a href="https://calendar.app.google/GKw8okh4CmYDHRrJ8" target="_blank" rel="noopener noreferrer">
+          Book your free Value Index review
         </a>
       </Button>
       <div>
