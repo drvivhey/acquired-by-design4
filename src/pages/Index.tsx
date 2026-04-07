@@ -6,6 +6,8 @@ import { QUESTIONS, calculateResults, Results } from "@/lib/questions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Cog, Handshake, KeyRound, BarChart3, Users, Monitor } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 const Index = () => {
   const [answers, setAnswers] = useState<Record<number, number>>({});
@@ -13,6 +15,10 @@ const Index = () => {
   const [started, setStarted] = useState(false);
   const [businessName, setBusinessName] = useState("");
   const [businessNameConfirmed, setBusinessNameConfirmed] = useState(false);
+  const [firstName, setFirstName] = useState("");
+  const [email, setEmail] = useState("");
+  const [detailsSubmitted, setDetailsSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   const handleSelect = (questionId: number, points: number) => {
     setAnswers((prev) => ({ ...prev, [questionId]: points }));
@@ -20,9 +26,57 @@ const Index = () => {
 
   const allAnswered = QUESTIONS.every((q) => answers[q.id] !== undefined);
 
-  const handleSubmit = () => {
-    setResults(calculateResults(answers));
-    window.scrollTo({ top: 0, behavior: "smooth" });
+  const handleSubmitDetails = async () => {
+    const computed = calculateResults(answers);
+    setSubmitting(true);
+
+    try {
+      const pillarMap: Record<string, number> = {};
+      computed.pillarScores.forEach((p) => {
+        pillarMap[p.key] = p.percentage;
+      });
+
+      const { error } = await supabase.from("bvi_responses").insert({
+        business_name: businessName,
+        first_name: firstName,
+        email: email,
+        total_score: computed.normalizedScore,
+        band_name: computed.band.label,
+        score_processes: pillarMap["processes"] ?? 0,
+        score_relationships: pillarMap["relationships"] ?? 0,
+        score_owner_independence: pillarMap["ownerIndependence"] ?? 0,
+        score_financials: pillarMap["financials"] ?? 0,
+        score_independent_team: pillarMap["independentTeam"] ?? 0,
+        score_technology: pillarMap["technology"] ?? 0,
+      });
+
+      if (error) {
+        console.error("Insert error:", error);
+        toast.error("Something went wrong saving your results. Please try again.");
+        setSubmitting(false);
+        return;
+      }
+
+      // Send email notification (fire and forget)
+      supabase.functions.invoke("notify-bvi-submission", {
+        body: {
+          firstName,
+          businessName,
+          email,
+          totalScore: computed.normalizedScore,
+          bandName: computed.band.label,
+        },
+      }).catch((err) => console.error("Email notification error:", err));
+
+      setResults(computed);
+      setDetailsSubmitted(true);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch (err) {
+      console.error("Submission error:", err);
+      toast.error("Something went wrong. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const handleRetake = () => {
@@ -31,6 +85,9 @@ const Index = () => {
     setStarted(false);
     setBusinessName("");
     setBusinessNameConfirmed(false);
+    setFirstName("");
+    setEmail("");
+    setDetailsSubmitted(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -117,6 +174,52 @@ const Index = () => {
     );
   }
 
+  // After all questions answered, show detail capture
+  if (allAnswered && !detailsSubmitted) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Navbar />
+        <div className="mx-auto max-w-md px-4 py-20 text-center">
+          <h1 className="mb-2 text-2xl font-black tracking-tight text-foreground">
+            Almost there
+          </h1>
+          <p className="mb-8 text-sm text-muted-foreground">
+            Enter your details to see your personalised results.
+          </p>
+          <div className="text-left space-y-4 mb-8">
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-foreground">First name</label>
+              <Input
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                placeholder="e.g. Vivienne"
+                className="w-full"
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-foreground">Email address</label>
+              <Input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="e.g. you@company.com"
+                className="w-full"
+              />
+            </div>
+          </div>
+          <Button
+            size="lg"
+            onClick={handleSubmitDetails}
+            disabled={!firstName.trim() || !email.trim() || submitting}
+            className="bg-primary hover:bg-primary/90 text-primary-foreground px-10 py-6 text-base font-bold rounded-lg disabled:opacity-40"
+          >
+            {submitting ? "Submitting..." : "View my results"}
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -145,16 +248,17 @@ const Index = () => {
           ))}
         </div>
 
-        <div className="mt-8 text-center">
-          <Button
-            size="lg"
-            onClick={handleSubmit}
-            disabled={!allAnswered}
-            className="bg-primary hover:bg-primary/90 text-primary-foreground px-10 py-6 text-base font-bold rounded-lg disabled:opacity-40"
-          >
-            View my results
-          </Button>
-        </div>
+        {!allAnswered && (
+          <div className="mt-8 text-center">
+            <Button
+              size="lg"
+              disabled
+              className="bg-primary hover:bg-primary/90 text-primary-foreground px-10 py-6 text-base font-bold rounded-lg disabled:opacity-40"
+            >
+              Answer all questions to continue
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );
