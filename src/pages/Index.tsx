@@ -4,6 +4,7 @@ import QuestionCard from "@/components/QuestionCard";
 import ResultsDashboard from "@/components/ResultsDashboard";
 import { QUESTIONS, calculateResults, Results } from "@/lib/questions";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Cog, Handshake, KeyRound, BarChart3, Users, Monitor } from "lucide-react";
 
 const Index = () => {
@@ -28,6 +29,8 @@ const Index = () => {
     setAnswers({});
     setResults(null);
     setStarted(false);
+    setBusinessName("");
+    setBusinessNameConfirmed(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -35,7 +38,7 @@ const Index = () => {
     return (
       <div className="min-h-screen bg-background">
         <Navbar />
-        <ResultsDashboard results={results} onRetake={handleRetake} />
+        <ResultsDashboard results={results} onRetake={handleRetake} businessName={businessName} />
       </div>
     );
   }
