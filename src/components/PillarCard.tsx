@@ -1,7 +1,9 @@
 import { PillarScore, getPillarSummary } from "@/lib/questions";
 import { Cog, Handshake, KeyRound, BarChart3, Users, Monitor } from "lucide-react";
 
-const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
+import type { LucideIcon } from "lucide-react";
+
+const iconMap: Record<string, LucideIcon> = {
   Cog, Handshake, KeyRound, BarChart3, Users, Monitor,
 };
 
