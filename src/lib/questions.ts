@@ -20,7 +20,7 @@ export const QUESTIONS: Question[] = [
     id: 1,
     pillar: "Processes",
     pillarKey: "processes",
-    text: "Can a new team member follow your delivery process without your direct involvement?",
+    text: "Could a new team member deliver your service to the same standard without you showing them each time?",
     options: [
       { label: "Yes", points: 10 },
       { label: "Partially", points: 5 },
@@ -31,7 +31,7 @@ export const QUESTIONS: Question[] = [
     id: 2,
     pillar: "Processes",
     pillarKey: "processes",
-    text: "Is your core service delivery documented in standard operating procedures (SOPs)?",
+    text: "Does your team have written guides or checklists they follow to deliver your service consistently?",
     options: [
       { label: "Yes", points: 10 },
       { label: "Partially", points: 5 },
