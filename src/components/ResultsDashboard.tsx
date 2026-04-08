@@ -41,9 +41,12 @@ const ResultsDashboard = ({ results, onRetake, businessName }: Props) => (
 
     {/* Spider chart */}
     <div>
-      <h2 className="mb-4 text-center text-xl font-bold text-foreground">
+      <h2 className="mb-1 text-center text-xl font-bold text-foreground">
         Your PROFIT profile
       </h2>
+      <p className="mb-4 text-center text-xs text-muted-foreground">
+        Scored using the Wellspring PROFIT Framework
+      </p>
       <SpiderChart pillarScores={results.pillarScores} />
     </div>
 
