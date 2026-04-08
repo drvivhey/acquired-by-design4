@@ -105,9 +105,6 @@ const Index = () => {
       <div className="min-h-screen bg-background">
         <Navbar />
         <div className="mx-auto max-w-2xl px-4 py-20 text-center">
-          <div className="mb-6 inline-flex items-center rounded-full border border-border bg-muted/50 px-4 py-1.5 text-xs font-medium text-muted-foreground">
-            The PROFIT Framework
-          </div>
           <h1 className="mb-4 text-4xl font-black tracking-tight text-foreground md:text-5xl">
             Is your business sellable, whether you want to exit or not?
           </h1>
