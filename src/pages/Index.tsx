@@ -112,14 +112,14 @@ const Index = () => {
             Is your business sellable, whether you want to exit or not?
           </h1>
           <p className="mb-8 text-lg leading-relaxed text-muted-foreground">
-            Answer 12 questions across the six pillars that drive transferable business value. Get your score and discover where to focus.
+            Answer 12 quick questions across the six pillars that drive transferable business value. Get your score and discover where to focus.
           </p>
           <Button
             size="lg"
             onClick={() => setStarted(true)}
             className="bg-primary hover:bg-primary/90 text-primary-foreground px-10 py-6 text-base font-bold rounded-lg"
           >
-            Start your assessment
+            Start your free assessment
           </Button>
           <div className="mt-12 grid grid-cols-3 md:grid-cols-6 gap-4 text-center">
             {[
