@@ -20,7 +20,7 @@ export const QUESTIONS: Question[] = [
     id: 1,
     pillar: "Processes",
     pillarKey: "processes",
-    text: "Could a new team member deliver your service to the same standard without you showing them each time?",
+    text: "Could someone new join your team and deliver your service well, without you guiding them through it?",
     options: [
       { label: "Yes", points: 10 },
       { label: "Partially", points: 5 },
