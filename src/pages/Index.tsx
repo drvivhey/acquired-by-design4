@@ -13,18 +13,27 @@ const Index = () => {
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [results, setResults] = useState<Results | null>(null);
   const [started, setStarted] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [businessName, setBusinessName] = useState("");
-  const [businessNameConfirmed, setBusinessNameConfirmed] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
   const [detailsSubmitted, setDetailsSubmitted] = useState(false);
+  const [showDetails, setShowDetails] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
   const handleSelect = (questionId: number, points: number) => {
     setAnswers((prev) => ({ ...prev, [questionId]: points }));
+    // auto-advance
+    setTimeout(() => {
+      if (currentIndex < QUESTIONS.length - 1) {
+        setCurrentIndex((i) => i + 1);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        setShowDetails(true);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    }, 200);
   };
-
-  const allAnswered = QUESTIONS.every((q) => answers[q.id] !== undefined);
 
   const handleSubmitDetails = async () => {
     const computed = calculateResults(answers);
@@ -57,7 +66,6 @@ const Index = () => {
         return;
       }
 
-      // Send email notification (fire and forget)
       supabase.functions.invoke("notify-bvi-submission", {
         body: {
           firstName,
@@ -83,11 +91,12 @@ const Index = () => {
     setAnswers({});
     setResults(null);
     setStarted(false);
+    setCurrentIndex(0);
     setBusinessName("");
-    setBusinessNameConfirmed(false);
     setFirstName("");
     setEmail("");
     setDetailsSubmitted(false);
+    setShowDetails(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -109,7 +118,7 @@ const Index = () => {
             Is your business sellable, whether you want to exit or not?
           </h1>
           <p className="mb-8 text-lg leading-relaxed text-muted-foreground">
-            Answer 12 quick questions across the six pillars that drive transferable business value. Get your score and discover where to focus.
+            Find out what your business is actually worth to a buyer. Takes about 3 minutes, and you'll see exactly where to focus.
           </p>
           <Button
             size="lg"
@@ -138,41 +147,7 @@ const Index = () => {
     );
   }
 
-  if (started && !businessNameConfirmed) {
-    return (
-      <div className="min-h-screen bg-background">
-        <Navbar />
-        <div className="mx-auto max-w-md px-4 py-20 text-center">
-          <h1 className="mb-2 text-2xl font-black tracking-tight text-foreground">
-            Before we begin
-          </h1>
-          <p className="mb-8 text-sm text-muted-foreground">
-            We'll use this to personalise your results.
-          </p>
-          <div className="text-left space-y-2 mb-8">
-            <label className="text-sm font-medium text-foreground">What is your business called?</label>
-            <Input
-              value={businessName}
-              onChange={(e) => setBusinessName(e.target.value)}
-              placeholder="e.g. Acme Consulting"
-              className="w-full"
-            />
-          </div>
-          <Button
-            size="lg"
-            onClick={() => setBusinessNameConfirmed(true)}
-            disabled={!businessName.trim()}
-            className="bg-primary hover:bg-primary/90 text-primary-foreground px-10 py-6 text-base font-bold rounded-lg disabled:opacity-40"
-          >
-            Continue
-          </Button>
-        </div>
-      </div>
-    );
-  }
-
-  // After all questions answered, show detail capture
-  if (allAnswered && !detailsSubmitted) {
+  if (showDetails && !detailsSubmitted) {
     return (
       <div className="min-h-screen bg-background">
         <Navbar />
@@ -181,9 +156,18 @@ const Index = () => {
             Almost there
           </h1>
           <p className="mb-8 text-sm text-muted-foreground">
-            Enter your details to see your personalised results.
+            Enter your details and we'll show your score plus your full six-pillar breakdown.
           </p>
           <div className="text-left space-y-4 mb-8">
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-foreground">What is your business called?</label>
+              <Input
+                value={businessName}
+                onChange={(e) => setBusinessName(e.target.value)}
+                placeholder="e.g. Acme Consulting"
+                className="w-full"
+              />
+            </div>
             <div className="space-y-2">
               <label className="text-sm font-medium text-foreground">First name</label>
               <Input
@@ -207,7 +191,7 @@ const Index = () => {
           <Button
             size="lg"
             onClick={handleSubmitDetails}
-            disabled={!firstName.trim() || !email.trim() || submitting}
+            disabled={!businessName.trim() || !firstName.trim() || !email.trim() || submitting}
             className="bg-primary hover:bg-primary/90 text-primary-foreground px-10 py-6 text-base font-bold rounded-lg disabled:opacity-40"
           >
             {submitting ? "Submitting..." : "View my results"}
@@ -217,6 +201,9 @@ const Index = () => {
     );
   }
 
+  const currentQuestion = QUESTIONS[currentIndex];
+  const answeredCount = Object.keys(answers).length;
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -224,38 +211,57 @@ const Index = () => {
         <div className="mb-8">
           <h1 className="text-2xl font-black tracking-tight text-foreground">Business value diagnostic</h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            {Object.keys(answers).length} of {QUESTIONS.length} answered
+            Question {currentIndex + 1} of {QUESTIONS.length}
           </p>
           <div className="mt-3 h-1.5 w-full rounded-full bg-muted">
             <div
               className="h-1.5 rounded-full bg-primary transition-all duration-300"
-              style={{ width: `${(Object.keys(answers).length / QUESTIONS.length) * 100}%` }}
+              style={{ width: `${((answeredCount) / QUESTIONS.length) * 100}%` }}
             />
           </div>
         </div>
 
-        <div className="space-y-4">
-          {QUESTIONS.map((q) => (
-            <QuestionCard
-              key={q.id}
-              question={q}
-              selectedPoints={answers[q.id]}
-              onSelect={handleSelect}
-            />
-          ))}
-        </div>
+        <QuestionCard
+          key={currentQuestion.id}
+          question={currentQuestion}
+          selectedPoints={answers[currentQuestion.id]}
+          onSelect={handleSelect}
+        />
 
-        {!allAnswered && (
-          <div className="mt-8 text-center">
+        <div className="mt-6 flex justify-between">
+          <Button
+            variant="ghost"
+            onClick={() => {
+              if (currentIndex > 0) {
+                setCurrentIndex((i) => i - 1);
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }
+            }}
+            disabled={currentIndex === 0}
+          >
+            Back
+          </Button>
+          {answers[currentQuestion.id] !== undefined && currentIndex < QUESTIONS.length - 1 && (
             <Button
-              size="lg"
-              disabled
-              className="bg-primary hover:bg-primary/90 text-primary-foreground px-10 py-6 text-base font-bold rounded-lg disabled:opacity-40"
+              onClick={() => {
+                setCurrentIndex((i) => i + 1);
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
             >
-              Answer all questions to continue
+              Next
             </Button>
-          </div>
-        )}
+          )}
+          {answers[currentQuestion.id] !== undefined && currentIndex === QUESTIONS.length - 1 && (
+            <Button
+              onClick={() => {
+                setShowDetails(true);
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+            >
+              Continue
+            </Button>
+          )}
+        </div>
       </div>
     </div>
   );
