@@ -186,43 +186,21 @@ export function calculateResults(answers: Record<number, number>): Results {
   return { totalScore, normalizedScore, band, pillarScores };
 }
 
-export function getPillarSummary(key: string, percentage: number): string {
-  const summaries: Record<string, { high: string; mid: string; low: string }> = {
-    processes: {
-      high: "Your processes are well-documented and scalable. New team members can onboard with minimal friction.",
-      mid: "Some processes exist but gaps remain. Formalising SOPs would significantly increase transferable value.",
-      low: "Delivery knowledge lives in people's heads. This is a critical vulnerability, start documenting immediately.",
-    },
-    relationships: {
-      high: "Healthy client diversification and strong contractual foundations protect your revenue.",
-      mid: "Some concentration risk exists. Focus on broadening your client base and securing recurring agreements.",
-      low: "Revenue is dangerously concentrated. A single client loss could be catastrophic.",
-    },
-    ownerIndependence: {
-      high: "The business generates revenue independently of you. This is a hallmark of a valuable, sellable asset.",
-      mid: "You're still involved in key revenue activities. Delegating sales and pipeline management is the next step.",
-      low: "You ARE the business. Until this changes, the business has limited transferable value.",
-    },
-    financials: {
-      high: "Your financial infrastructure is investor-ready with real-time visibility and audit resilience.",
-      mid: "Financial foundations exist but need strengthening. Consider upgrading to management-ready reporting.",
-      low: "Financial visibility is poor. This would be a red flag in any due diligence process.",
-    },
-    independentTeam: {
-      high: "You have leadership depth and resilience. The team can operate without you or key individuals.",
-      mid: "Some team dependency exists. Developing a clear second-in-command should be a priority.",
-      low: "The team is fragile. Key-person risk is extremely high and threatens business continuity.",
-    },
-    technology: {
-      high: "Strong tech infrastructure and proprietary IP create defensible competitive advantages.",
-      mid: "Some systems are in place, but knowledge and IP could be better centralised and protected.",
-      low: "Critical data and knowledge are scattered. Centralising your IP is an urgent priority.",
-    },
+export function getPillarSummary(key: string): string {
+  const summaries: Record<string, string> = {
+    processes:
+      "Right now, too much of how you deliver lives in people's heads. Documenting it is one of the highest-value things you can do, and it's very doable.",
+    relationships:
+      "Your revenue is concentrated in a small number of clients. A buyer sees that as risk, so spreading it is one of the clearest ways to lift value.",
+    ownerIndependence:
+      "At the moment, you are the business. That's normal for an owner-led company, and it's also the single biggest thing to shift to make it sellable.",
+    financials:
+      "Your financial visibility needs work. Buyers look here first, so getting your numbers management-ready early removes a major obstacle later.",
+    independentTeam:
+      "Key-person risk is high, which leaves the business exposed if someone steps away. Building bench strength protects both you and the value.",
+    technology:
+      "You've got some good foundations here. Centralising your data and protecting your IP would turn that into a real, defensible asset.",
   };
 
-  const s = summaries[key];
-  if (!s) return "";
-  if (percentage >= 75) return s.high;
-  if (percentage >= 40) return s.mid;
-  return s.low;
+  return summaries[key] ?? "";
 }
