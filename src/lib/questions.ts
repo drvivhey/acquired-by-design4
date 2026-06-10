@@ -186,21 +186,43 @@ export function calculateResults(answers: Record<number, number>): Results {
   return { totalScore, normalizedScore, band, pillarScores };
 }
 
-export function getPillarSummary(key: string): string {
-  const summaries: Record<string, string> = {
-    processes:
-      "Right now, too much of how you deliver lives in people's heads. Documenting it is one of the highest-value things you can do, and it's very doable.",
-    relationships:
-      "Your revenue is concentrated in a small number of clients. A buyer sees that as risk, so spreading it is one of the clearest ways to lift value.",
-    ownerIndependence:
-      "At the moment, you are the business. That's normal for an owner-led company, and it's also the single biggest thing to shift to make it sellable.",
-    financials:
-      "Your financial visibility needs work. Buyers look here first, so getting your numbers management-ready early removes a major obstacle later.",
-    independentTeam:
-      "Key-person risk is high, which leaves the business exposed if someone steps away. Building bench strength protects both you and the value.",
-    technology:
-      "You've got some good foundations here. Centralising your data and protecting your IP would turn that into a real, defensible asset.",
+export function getPillarSummary(key: string, percentage: number): string {
+  const tier: "high" | "mid" | "low" =
+    percentage >= 75 ? "high" : percentage >= 40 ? "mid" : "low";
+
+  const summaries: Record<string, Record<"high" | "mid" | "low", string>> = {
+    processes: {
+      high: "Your processes are well documented and scalable, so new people can get up to speed with very little friction. Keep them current as you grow and this stays a real asset.",
+      mid: "Some of your processes are in place, but gaps remain. Formalising the rest is one of the clearest ways to lift transferable value, and it's very doable.",
+      low: "Right now, too much of how you deliver lives in people's heads. Documenting it is one of the highest-value things you can do, and it's very doable.",
+    },
+    relationships: {
+      high: "Healthy client diversification and strong contracts protect your revenue. That's exactly what a buyer wants to see.",
+      mid: "There's some concentration in your client base. Broadening it and securing recurring agreements is a straightforward way to reduce risk and lift value.",
+      low: "Your revenue is concentrated in a small number of clients. A buyer sees that as risk, so spreading it is one of the clearest ways to lift value.",
+    },
+    ownerIndependence: {
+      high: "The business generates revenue without depending on you, which is a hallmark of a valuable, sellable asset. Protect that as the team grows.",
+      mid: "You're still involved in key revenue activities. Handing over sales and pipeline is the natural next step, and it's where a lot of value gets unlocked.",
+      low: "At the moment, you are the business. That's normal for an owner-led company, and it's also the single biggest thing to shift to make it sellable.",
+    },
+    financials: {
+      high: "Your financial infrastructure is investor-ready, with real-time visibility and the resilience to stand up to scrutiny. This is a genuine strength.",
+      mid: "Your financial foundations are there but need strengthening. Moving to management-ready reporting removes a major obstacle later in any sale.",
+      low: "Your financial visibility needs work. Buyers look here first, so getting your numbers management-ready early removes a major obstacle later.",
+    },
+    independentTeam: {
+      high: "You have real leadership depth. The team can operate without you or any single individual, which is exactly what makes a business resilient and valuable.",
+      mid: "There's some dependency on a few key people. Developing a clear second-in-command should be a priority, and it protects both you and the value.",
+      low: "Key-person risk is high, which leaves the business exposed if someone steps away. Building bench strength protects both you and the value.",
+    },
+    technology: {
+      high: "Strong systems and proprietary IP give you a defensible advantage. Keep it protected and current and it stays a real differentiator.",
+      mid: "You've got some good foundations here. Centralising your data and protecting your IP would turn that into a real, defensible asset.",
+      low: "Your data and knowledge are scattered at the moment. Centralising and protecting your IP is one of the most valuable early moves you can make.",
+    },
   };
 
-  return summaries[key] ?? "";
+  return summaries[key]?.[tier] ?? "";
 }
+
