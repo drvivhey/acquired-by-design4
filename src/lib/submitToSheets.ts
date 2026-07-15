@@ -1,23 +1,18 @@
 // Google Apps Script Web App endpoint. Set VITE_SHEETS_URL in your .env file.
 const SHEETS_WEB_APP_URL = import.meta.env.VITE_SHEETS_URL;
 
-export interface QuizScores {
-  P: number;
-  R: number;
-  O: number;
-  F: number;
-  I: number;
-  T: number;
-}
-
 export interface QuizSubmissionPayload {
-  name: string;
+  business_name: string;
+  first_name: string;
   email: string;
-  scores: QuizScores;
-  total: number;
-  segment: string;
-  answers: Record<number, number>;
-  businessName?: string;
+  total_score: number;
+  band_name: string;
+  score_processes: number;
+  score_relationships: number;
+  score_owner_independence: number;
+  score_financials: number;
+  score_independent_team: number;
+  score_technology: number;
 }
 
 export async function submitToSheets(payload: QuizSubmissionPayload): Promise<void> {
