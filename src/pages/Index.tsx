@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Cog, Handshake, KeyRound, BarChart3, Users, Monitor } from "lucide-react";
 import { submitToSheets } from "@/lib/submitToSheets";
-import { toast } from "sonner";
 
 const Index = () => {
   const [answers, setAnswers] = useState<Record<number, number>>({});
@@ -39,12 +38,12 @@ const Index = () => {
     const computed = calculateResults(answers);
     setSubmitting(true);
 
-    try {
-      const pillarMap: Record<string, number> = {};
-      computed.pillarScores.forEach((p) => {
-        pillarMap[p.key] = p.percentage;
-      });
+    const pillarMap: Record<string, number> = {};
+    computed.pillarScores.forEach((p) => {
+      pillarMap[p.key] = p.percentage;
+    });
 
+    try {
       await submitToSheets({
         name: firstName,
         email: email,
@@ -61,16 +60,14 @@ const Index = () => {
         segment: computed.band.label,
         answers,
       });
-
-      setResults(computed);
-      setDetailsSubmitted(true);
-      window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (err) {
       console.error("Submission error:", err);
-      toast.error("Something went wrong. Please try again.");
-    } finally {
-      setSubmitting(false);
     }
+
+    setResults(computed);
+    setDetailsSubmitted(true);
+    setSubmitting(false);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleRetake = () => {
