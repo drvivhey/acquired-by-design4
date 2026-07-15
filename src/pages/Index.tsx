@@ -45,20 +45,17 @@ const Index = () => {
 
     try {
       await submitToSheets({
-        name: firstName,
+        business_name: businessName,
+        first_name: firstName,
         email: email,
-        businessName: businessName,
-        scores: {
-          P: pillarMap["processes"] ?? 0,
-          R: pillarMap["relationships"] ?? 0,
-          O: pillarMap["ownerIndependence"] ?? 0,
-          F: pillarMap["financials"] ?? 0,
-          I: pillarMap["independentTeam"] ?? 0,
-          T: pillarMap["technology"] ?? 0,
-        },
-        total: computed.normalizedScore,
-        segment: computed.band.label,
-        answers,
+        total_score: computed.normalizedScore,
+        band_name: computed.band.label,
+        score_processes: pillarMap["processes"] ?? 0,
+        score_relationships: pillarMap["relationships"] ?? 0,
+        score_owner_independence: pillarMap["ownerIndependence"] ?? 0,
+        score_financials: pillarMap["financials"] ?? 0,
+        score_independent_team: pillarMap["independentTeam"] ?? 0,
+        score_technology: pillarMap["technology"] ?? 0,
       });
     } catch (err) {
       console.error("Submission error:", err);
