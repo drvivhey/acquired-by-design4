@@ -1,5 +1,5 @@
-// Google Apps Script Web App endpoint. Set VITE_SHEETS_WEB_APP_URL in your .env file.
-const SHEETS_WEB_APP_URL = import.meta.env.VITE_SHEETS_WEB_APP_URL || "[PASTE YOUR WEB APP URL]";
+// Google Apps Script Web App endpoint. Set VITE_SHEETS_URL in your .env file.
+const SHEETS_WEB_APP_URL = import.meta.env.VITE_SHEETS_URL;
 
 export interface QuizScores {
   P: number;
