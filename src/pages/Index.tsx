@@ -6,7 +6,7 @@ import { QUESTIONS, calculateResults, Results } from "@/lib/questions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Cog, Handshake, KeyRound, BarChart3, Users, Monitor } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
+import { submitToSheets } from "@/lib/submitToSheets";
 import { toast } from "sonner";
 
 const Index = () => {
@@ -45,36 +45,22 @@ const Index = () => {
         pillarMap[p.key] = p.percentage;
       });
 
-      const { error } = await supabase.from("bvi_responses").insert({
-        business_name: businessName,
-        first_name: firstName,
+      await submitToSheets({
+        name: firstName,
         email: email,
-        total_score: computed.normalizedScore,
-        band_name: computed.band.label,
-        score_processes: pillarMap["processes"] ?? 0,
-        score_relationships: pillarMap["relationships"] ?? 0,
-        score_owner_independence: pillarMap["ownerIndependence"] ?? 0,
-        score_financials: pillarMap["financials"] ?? 0,
-        score_independent_team: pillarMap["independentTeam"] ?? 0,
-        score_technology: pillarMap["technology"] ?? 0,
-      });
-
-      if (error) {
-        console.error("Insert error:", error);
-        toast.error("Something went wrong saving your results. Please try again.");
-        setSubmitting(false);
-        return;
-      }
-
-      supabase.functions.invoke("notify-bvi-submission", {
-        body: {
-          firstName,
-          businessName,
-          email,
-          totalScore: computed.normalizedScore,
-          bandName: computed.band.label,
+        businessName: businessName,
+        scores: {
+          P: pillarMap["processes"] ?? 0,
+          R: pillarMap["relationships"] ?? 0,
+          O: pillarMap["ownerIndependence"] ?? 0,
+          F: pillarMap["financials"] ?? 0,
+          I: pillarMap["independentTeam"] ?? 0,
+          T: pillarMap["technology"] ?? 0,
         },
-      }).catch((err) => console.error("Email notification error:", err));
+        total: computed.normalizedScore,
+        segment: computed.band.label,
+        answers,
+      });
 
       setResults(computed);
       setDetailsSubmitted(true);
