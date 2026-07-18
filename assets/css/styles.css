@@ -17,6 +17,16 @@ body {
 
 image-slot { display: block; width: 100%; height: 100%; }
 
+/* Overflow guards: never let the page scroll sideways on small screens. */
+html { overflow-x: clip; }
+img, svg { max-width: 100%; }
+/* Grid/flex children with long text must be allowed to shrink below their
+   content's intrinsic width, otherwise they force horizontal overflow. */
+.hero-copy, .hero-card, .cta-copy, .cta-card, .stat-card { min-width: 0; }
+/* .cta-card carries an inline width:100% plus padding — include padding in
+   the width so it never exceeds its grid track. */
+.cta-card { box-sizing: border-box; }
+
 /* Respect users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -43,7 +53,7 @@ select:focus-visible {
 
 /* --- Responsive ---------------------------------------------------------- */
 @media (max-width: 760px) {
-  .two-col { grid-template-columns: 1fr !important; gap: 24px !important; padding-top: 44px !important; padding-bottom: 44px !important; }
+  .two-col { grid-template-columns: minmax(0, 1fr) !important; gap: 24px !important; padding-top: 44px !important; padding-bottom: 44px !important; }
   .advisor-col { justify-items: center; text-align: center; }
   .advisor-col .cred-row { justify-content: flex-start !important; gap: 6px !important; }
   .pad-y { padding-top: 46px !important; padding-bottom: 46px !important; }
@@ -53,10 +63,11 @@ select:focus-visible {
   header a { padding: 9px 16px !important; font-size: 13px !important; box-shadow: none !important; }
   .hero-pad h1, .hero-pad h1 span { font-size: 36px !important; }
   .hero-lead { font-size: 16.5px !important; }
-  .hero-grid { grid-template-columns: 1fr !important; gap: 30px !important; }
-  .hero-cta { flex-wrap: nowrap !important; gap: 10px !important; }
-  .hero-cta .hero-btn { flex: 1 1 0; padding-left: 14px !important; padding-right: 14px !important; font-size: 14px !important; }
-  .roadmap-grid { grid-template-columns: 1fr !important; gap: 12px !important; margin-top: 30px !important; }
+  .hero-grid { grid-template-columns: minmax(0, 1fr) !important; gap: 30px !important; }
+  /* Stack the CTAs full-width so long labels never overflow the viewport. */
+  .hero-cta { flex-direction: column !important; align-items: stretch !important; flex-wrap: wrap !important; gap: 10px !important; }
+  .hero-cta .hero-btn { flex: none !important; width: 100% !important; box-sizing: border-box !important; padding-left: 14px !important; padding-right: 14px !important; font-size: 14px !important; }
+  .roadmap-grid { grid-template-columns: minmax(0, 1fr) !important; gap: 12px !important; margin-top: 30px !important; }
   .roadmap-card { padding: 18px !important; }
   .advisor-col { padding-top: 40px !important; padding-bottom: 40px !important; gap: 18px !important; }
   .advisor-photo-wrap > * { width: 132px !important; height: 132px !important; }
@@ -66,7 +77,7 @@ select:focus-visible {
   .cred-chip { padding: 5px 9px !important; font-size: 11.5px !important; gap: 5px !important; }
   .cred-chip > span:first-child { display: none !important; }
   .stat-card { padding: 30px 26px !important; border-radius: 22px !important; }
-  .cta-grid { grid-template-columns: 1fr !important; gap: 22px !important; }
+  .cta-grid { grid-template-columns: minmax(0, 1fr) !important; gap: 22px !important; }
   .cta-card { padding: 22px 20px !important; border-radius: 20px !important; }
   .cta-lead { font-size: 15.5px !important; margin-bottom: 14px !important; }
   .cta-sub { font-size: 13.5px !important; }
