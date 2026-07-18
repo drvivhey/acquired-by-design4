@@ -13,17 +13,14 @@
     'https://script.google.com/macros/s/AKfycbxv0m-3dqrvAuOPx6qoMahr85Z56xbzV3fcZ5Jn4_3XKFjiXZHsdFnTTuhoJ2vyJujiuw/exec';
 
   function submitToSheets(payload) {
-    // The Apps Script reads request parameters (e.parameter.<name>), which a
-    // JSON body does not populate — that left every column but the timestamp
-    // and email blank. Send the fields in the query string as well so each
-    // one arrives under its exact name (fullName, email, phone, businessName,
-    // primaryGoal). The JSON body is kept for backward compatibility.
-    var params = new URLSearchParams(payload).toString();
-    var url = SHEETS_WEB_APP_URL + (SHEETS_WEB_APP_URL.indexOf('?') === -1 ? '?' : '&') + params;
-    return fetch(url, {
+    // Exact transport the working site uses: a "simple" no-cors, text/plain
+    // POST of the JSON payload. The Apps Script reads e.postData.contents and
+    // appends a row, so the payload KEYS must match the sheet's fields
+    // (name, email, phone, business, goal, submittedAt).
+    return fetch(SHEETS_WEB_APP_URL, {
       method: 'POST',
       mode: 'no-cors',
-      headers: { 'Content-Type': 'text/plain' },
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body: JSON.stringify(payload)
     });
   }
@@ -49,10 +46,16 @@
       var status = document.getElementById('form-status');
       var button = form.querySelector('button[type="submit"]');
 
-      // Serialise the form using each field's name attribute.
-      var data = new FormData(form);
-      var payload = {};
-      data.forEach(function (value, key) { payload[key] = value; });
+      // Map the form fields to the keys the Apps Script / sheet expects.
+      var fd = new FormData(form);
+      var payload = {
+        name: fd.get('fullName'),
+        email: fd.get('email'),
+        phone: fd.get('phone'),
+        business: fd.get('businessName'),
+        goal: fd.get('primaryGoal'),
+        submittedAt: new Date().toISOString()
+      };
 
       if (button) { button.disabled = true; button.textContent = 'Submitting…'; }
 
@@ -60,7 +63,7 @@
         .catch(function (err) { console.error('Submission error:', err); })
         .then(function () {
           if (status) {
-            status.textContent = payload.primaryGoal === 'Waitlist'
+            status.textContent = payload.goal === 'Waitlist'
               ? "You're on the waitlist — we'll be in touch when the next cohort opens."
               : "Thank you — your application is in. We'll be in touch shortly to arrange a call.";
             status.hidden = false;
