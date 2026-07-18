@@ -5,6 +5,12 @@
   publish = "."
   command = ""
 
+# Serve privacy.html at the clean /privacy path the footer links to.
+[[redirects]]
+  from = "/privacy"
+  to = "/privacy.html"
+  status = 200
+
 # Long-lived, safe-to-cache assets (stable filenames).
 [[headers]]
   for = "/assets/fonts/*"
