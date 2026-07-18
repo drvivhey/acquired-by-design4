@@ -60,15 +60,25 @@
       if (button) { button.disabled = true; button.textContent = 'Submitting…'; }
 
       submitToSheets(payload)
-        .catch(function (err) { console.error('Submission error:', err); })
         .then(function () {
+          // Replace the form with a confirmation card, as the previous site did.
+          form.hidden = true;
+          var notice = document.getElementById('waitlist-notice');
+          if (notice) notice.style.display = 'none';
           if (status) {
-            status.textContent = payload.goal === 'Waitlist'
-              ? "You're on the waitlist — we'll be in touch when the next cohort opens."
-              : "Thank you — your application is in. We'll be in touch shortly to arrange a call.";
             status.hidden = false;
+            status.innerHTML =
+              '<span aria-hidden="true" style="width:48px;height:48px;border-radius:999px;background:#219b94;color:#ffffff;display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 14px;">✓</span>' +
+              '<span style="display:block;font-size:18px;font-weight:600;color:#fdfffe;margin-bottom:6px;">You\'re on the list.</span>' +
+              '<span style="display:block;font-size:14.5px;line-height:1.6;color:#b9d3d7;">We\'ll be in touch shortly to arrange your call.</span>';
           }
-          form.reset();
+        })
+        .catch(function (err) {
+          console.error('Submission error:', err);
+          if (status) {
+            status.hidden = false;
+            status.textContent = "Something went wrong sending your details. Please email hello@wellspringexit.com and we'll sort it out.";
+          }
           if (button) { button.disabled = false; button.textContent = 'Submit'; }
         });
     });
