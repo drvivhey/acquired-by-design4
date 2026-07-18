@@ -62,7 +62,9 @@
       submitToSheets(payload)
         .then(function () {
           // Replace the form with a confirmation card, as the previous site did.
-          form.hidden = true;
+          // The form has an inline `display: flex`, so `hidden` alone won't hide
+          // it — set display:none directly.
+          form.style.display = 'none';
           var notice = document.getElementById('waitlist-notice');
           if (notice) notice.style.display = 'none';
           if (status) {
