@@ -13,7 +13,14 @@
     'https://script.google.com/macros/s/AKfycbxv0m-3dqrvAuOPx6qoMahr85Z56xbzV3fcZ5Jn4_3XKFjiXZHsdFnTTuhoJ2vyJujiuw/exec';
 
   function submitToSheets(payload) {
-    return fetch(SHEETS_WEB_APP_URL, {
+    // The Apps Script reads request parameters (e.parameter.<name>), which a
+    // JSON body does not populate — that left every column but the timestamp
+    // and email blank. Send the fields in the query string as well so each
+    // one arrives under its exact name (fullName, email, phone, businessName,
+    // primaryGoal). The JSON body is kept for backward compatibility.
+    var params = new URLSearchParams(payload).toString();
+    var url = SHEETS_WEB_APP_URL + (SHEETS_WEB_APP_URL.indexOf('?') === -1 ? '?' : '&') + params;
+    return fetch(url, {
       method: 'POST',
       mode: 'no-cors',
       headers: { 'Content-Type': 'text/plain' },
