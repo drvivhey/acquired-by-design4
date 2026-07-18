@@ -67,6 +67,8 @@
           form.style.display = 'none';
           var notice = document.getElementById('waitlist-notice');
           if (notice) notice.style.display = 'none';
+          var diagnostic = document.getElementById('diagnostic-note');
+          if (diagnostic) diagnostic.style.display = 'none';
           if (status) {
             status.hidden = false;
             status.innerHTML =
