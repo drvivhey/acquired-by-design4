@@ -56,8 +56,11 @@ confirmation after posting. The "Join the waitlist" link preselects the
 
 ## Deployment
 
-Pushing to `main` triggers `.github/workflows/deploy.yml`, which publishes the
-repository root to **GitHub Pages**. Enable Pages once under
-**Settings → Pages → Build and deployment → Source: GitHub Actions**.
+Deployed via **Netlify** using its Git integration — connect this repository once
+in the Netlify dashboard and every push to `main` publishes automatically. There
+is no build step: `netlify.toml` sets `publish = "."` and serves the repository
+root as-is, with long-lived caching for fonts/images and baseline security
+headers. Point the `wellspringindex.co.uk` domain at the Netlify site under
+**Site configuration → Domain management**.
 
-The site is also served in production at <https://wellspringindex.co.uk>.
+The site is served in production at <https://wellspringindex.co.uk>.
