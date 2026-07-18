@@ -4,6 +4,23 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  <script>
+    /* Remove any stale service worker / caches left by the previous site so
+       visitors aren't served an old, broken app shell. Safe no-op otherwise. */
+    (function () {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations()
+          .then(function (regs) { regs.forEach(function (r) { r.unregister(); }); })
+          .catch(function () {});
+      }
+      if (window.caches && caches.keys) {
+        caches.keys()
+          .then(function (keys) { keys.forEach(function (k) { caches.delete(k); }); })
+          .catch(function () {});
+      }
+    })();
+  </script>
+
   <title>Wellspring Profit Index — 7 Weeks to a Business Buyers Want</title>
   <meta name="description" content="Join an exclusive founder cohort to optimise your operations and finances, maximise your valuation, and reduce your business's dependency on you.">
   <meta name="author" content="Wellspring Exit Advisory">

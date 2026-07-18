@@ -27,6 +27,20 @@
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
 
+# Service worker files must never be cached, so browsers always re-fetch the
+# self-destruct version and unregister the old worker promptly.
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+    Service-Worker-Allowed = "/"
+
+[[headers]]
+  for = "/service-worker.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+    Service-Worker-Allowed = "/"
+
 # Sensible baseline security headers for every response.
 [[headers]]
   for = "/*"
