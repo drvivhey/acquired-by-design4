@@ -1,0 +1,74 @@
+/* ============================================================
+   Wellspring Profit Index — base + component styles
+   Fonts are declared in fonts.css. Most layout is authored as
+   inline styles on the markup; this file holds global defaults,
+   real interaction states, and the responsive overrides.
+   ============================================================ */
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: #fbf7f2;
+  font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+  color: #33474c;
+  -webkit-font-smoothing: antialiased;
+}
+
+image-slot { display: block; width: 100%; height: 100%; }
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; }
+}
+
+/* --- Interaction states -------------------------------------------------
+   The source export encoded these as non-standard style-hover / style-focus
+   attributes, which browsers ignore. They are re-expressed here as real CSS
+   so the buttons and fields actually respond. */
+.btn-fill:hover { background: #e85f24 !important; }
+.btn-outline:hover { border-color: #187283 !important; }
+.cta-form input:focus,
+.cta-form select:focus { border-color: #ff9163 !important; }
+
+/* Visible keyboard focus for accessibility */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid #ff9163;
+  outline-offset: 2px;
+}
+
+/* --- Responsive ---------------------------------------------------------- */
+@media (max-width: 760px) {
+  .two-col { grid-template-columns: 1fr !important; gap: 24px !important; padding-top: 44px !important; padding-bottom: 44px !important; }
+  .advisor-col { justify-items: center; text-align: center; }
+  .advisor-col .cred-row { justify-content: flex-start !important; gap: 6px !important; }
+  .pad-y { padding-top: 46px !important; padding-bottom: 46px !important; }
+  .hero-pad { padding-top: 48px !important; padding-bottom: 52px !important; }
+  header img { height: 26px !important; }
+  header > div { padding-top: 12px !important; padding-bottom: 12px !important; gap: 12px !important; }
+  header a { padding: 9px 16px !important; font-size: 13px !important; box-shadow: none !important; }
+  .hero-pad h1, .hero-pad h1 span { font-size: 36px !important; }
+  .hero-lead { font-size: 16.5px !important; }
+  .hero-grid { grid-template-columns: 1fr !important; gap: 30px !important; }
+  .hero-cta { flex-wrap: nowrap !important; gap: 10px !important; }
+  .hero-cta .hero-btn { flex: 1 1 0; padding-left: 14px !important; padding-right: 14px !important; font-size: 14px !important; }
+  .roadmap-grid { grid-template-columns: 1fr !important; gap: 12px !important; margin-top: 30px !important; }
+  .roadmap-card { padding: 18px !important; }
+  .advisor-col { padding-top: 40px !important; padding-bottom: 40px !important; gap: 18px !important; }
+  .advisor-photo-wrap > * { width: 132px !important; height: 132px !important; }
+  .advisor-ring { display: none !important; }
+  .advisor-name { font-size: 27px !important; margin-top: 14px !important; }
+  .advisor-p { font-size: 15px !important; line-height: 1.6 !important; margin-bottom: 12px !important; }
+  .cred-chip { padding: 5px 9px !important; font-size: 11.5px !important; gap: 5px !important; }
+  .cred-chip > span:first-child { display: none !important; }
+  .stat-card { padding: 30px 26px !important; border-radius: 22px !important; }
+  .cta-grid { grid-template-columns: 1fr !important; gap: 22px !important; }
+  .cta-card { padding: 22px 20px !important; border-radius: 20px !important; }
+  .cta-lead { font-size: 15.5px !important; margin-bottom: 14px !important; }
+  .cta-sub { font-size: 13.5px !important; }
+  .cta-form { gap: 12px !important; }
+}

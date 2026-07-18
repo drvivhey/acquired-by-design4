@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Wellspring">
+  <rect width="32" height="32" rx="7" fill="#0f4c56"/>
+  <path d="M5.4 8.8h3.15l2.2 10.05L13.6 8.8h2.8l2.85 10.05L21.45 8.8h3.15l-3.5 14.4h-3.05L15.8 13.2l-2.25 10h-3.05z" fill="#fdfffe"/>
+  <circle cx="24.6" cy="10.4" r="2.1" fill="#ff7338"/>
+</svg>
