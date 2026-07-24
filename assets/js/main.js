@@ -37,6 +37,28 @@
     });
   }
 
+  // --- Intro video: lazy click-to-play -------------------------------------
+  // No YouTube iframe is loaded until the poster is clicked, so it costs
+  // nothing on initial page load.
+  var intro = document.getElementById('intro-video');
+  if (intro) {
+    var playBtn = intro.querySelector('.intro-video-play');
+    if (playBtn) {
+      playBtn.addEventListener('click', function () {
+        var id = intro.getAttribute('data-video');
+        var iframe = document.createElement('iframe');
+        iframe.src = 'https://www.youtube.com/embed/' + id +
+          '?autoplay=1&playsinline=1&rel=0&modestbranding=1';
+        iframe.title = "Dr Vivienne Heyhoe's intro video";
+        iframe.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share';
+        iframe.setAttribute('allowfullscreen', '');
+        iframe.setAttribute('style', 'position:absolute; inset:0; width:100%; height:100%; border:0;');
+        intro.innerHTML = '';
+        intro.appendChild(iframe);
+      });
+    }
+  }
+
   // --- Apply form ----------------------------------------------------------
   var form = document.getElementById('apply-form');
   if (form) {
