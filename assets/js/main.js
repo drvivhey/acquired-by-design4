@@ -46,15 +46,52 @@
     if (playBtn) {
       playBtn.addEventListener('click', function () {
         var id = intro.getAttribute('data-video');
-        var iframe = document.createElement('iframe');
-        iframe.src = 'https://www.youtube.com/embed/' + id +
-          '?autoplay=1&playsinline=1&rel=0&modestbranding=1&cc_load_policy=0';
-        iframe.title = "Dr Vivienne Heyhoe's intro video";
-        iframe.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share';
-        iframe.setAttribute('allowfullscreen', '');
-        iframe.setAttribute('style', 'position:absolute; inset:0; width:100%; height:100%; border:0;');
+
+        // Build the player through the IFrame Player API so we can turn
+        // YouTube's caption track off — cc_load_policy=0 only requests it,
+        // the API's unloadModule('captions') actually removes it.
+        var mount = document.createElement('div');
+        mount.setAttribute('style', 'position:absolute; inset:0; width:100%; height:100%;');
         intro.innerHTML = '';
-        intro.appendChild(iframe);
+        intro.appendChild(mount);
+
+        function killCaptions(p) {
+          try { p.unloadModule('captions'); } catch (e) {}
+          try { p.unloadModule('cc'); } catch (e) {}
+        }
+
+        function createPlayer() {
+          /* global YT */
+          new YT.Player(mount, {
+            width: '100%',
+            height: '100%',
+            videoId: id,
+            playerVars: {
+              autoplay: 1, playsinline: 1, rel: 0,
+              modestbranding: 1, cc_load_policy: 0
+            },
+            events: {
+              onReady: function (e) { killCaptions(e.target); e.target.playVideo(); },
+              onStateChange: function (e) { if (e.data === 1) killCaptions(e.target); }
+            }
+          });
+        }
+
+        if (window.YT && window.YT.Player) {
+          createPlayer();
+        } else {
+          var prev = window.onYouTubeIframeAPIReady;
+          window.onYouTubeIframeAPIReady = function () {
+            if (typeof prev === 'function') prev();
+            createPlayer();
+          };
+          if (!document.getElementById('yt-iframe-api')) {
+            var s = document.createElement('script');
+            s.id = 'yt-iframe-api';
+            s.src = 'https://www.youtube.com/iframe_api';
+            document.head.appendChild(s);
+          }
+        }
       });
     }
   }
