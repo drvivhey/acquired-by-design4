@@ -67,6 +67,9 @@ select:focus-visible {
   /* Stack the CTAs full-width so long labels never overflow the viewport. */
   .hero-cta { flex-direction: column !important; align-items: stretch !important; flex-wrap: wrap !important; gap: 10px !important; }
   .hero-cta .hero-btn { flex: none !important; width: 100% !important; box-sizing: border-box !important; padding-left: 14px !important; padding-right: 14px !important; font-size: 14px !important; }
+  /* Intro video + credibility panel: stack to one column, video first. */
+  .intro-block { grid-template-columns: minmax(0, 1fr) !important; gap: 20px !important; }
+  .intro-video { max-width: 200px !important; }
   .roadmap-grid { grid-template-columns: minmax(0, 1fr) !important; gap: 12px !important; margin-top: 30px !important; }
   .roadmap-card { padding: 18px !important; }
   .advisor-col { padding-top: 40px !important; padding-bottom: 40px !important; gap: 18px !important; }

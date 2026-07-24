@@ -48,7 +48,7 @@
         var id = intro.getAttribute('data-video');
         var iframe = document.createElement('iframe');
         iframe.src = 'https://www.youtube.com/embed/' + id +
-          '?autoplay=1&playsinline=1&rel=0&modestbranding=1';
+          '?autoplay=1&playsinline=1&rel=0&modestbranding=1&cc_load_policy=0';
         iframe.title = "Dr Vivienne Heyhoe's intro video";
         iframe.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share';
         iframe.setAttribute('allowfullscreen', '');

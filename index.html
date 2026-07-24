@@ -74,20 +74,33 @@
       </div>
       <a href="#apply" id="waitlist-link" style="margin-top: 14px; font-size: 13.5px; line-height: 1.5; color: #62777c; text-decoration: underline; text-underline-offset: 2px;">Not free in September? Join the waitlist for the next cohort.</a>
 
-      <!-- Intro video (lazy click-to-play — no iframe loads until clicked) -->
-      <div id="intro-video" class="intro-video" data-video="Ruf-IFGZVMI" style="margin-top: 26px; position: relative; width: 184px; max-width: 62%; aspect-ratio: 9 / 16; border-radius: 20px; overflow: hidden; background: #10262b; box-shadow: 0 22px 46px -22px rgba(15,76,86,0.55);">
-        <button type="button" class="intro-video-play" aria-label="Play Dr Vivienne Heyhoe's intro video" style="position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; padding: 0; border: none; cursor: pointer; background: none; -webkit-tap-highlight-color: transparent;">
-          <img src="assets/img/intro-thumb.jpg" alt="Dr Vivienne Heyhoe" width="450" height="800" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block;">
-          <span aria-hidden="true" style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: linear-gradient(180deg, rgba(16,38,43,0) 45%, rgba(16,38,43,0.28));">
-            <span style="width: 58px; height: 58px; border-radius: 999px; background: rgba(255,115,56,0.96); display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 22px rgba(0,0,0,0.28);">
-              <svg width="21" height="24" viewBox="0 0 20 24" aria-hidden="true"><path d="M0 2.2v19.6c0 .93 1.02 1.5 1.8 1.02L19 13.28c.74-.46.74-1.54 0-2L1.8 1.18C1.02.7 0 1.27 0 2.2z" fill="#ffffff"/></svg>
+      <!-- Intro video + founder credibility panel -->
+      <div class="intro-block" style="margin-top: 26px; width: 100%; display: grid; grid-template-columns: 184px minmax(0, 1fr); gap: 22px 22px; align-items: stretch;">
+        <!-- Lazy click-to-play video — no iframe loads until clicked -->
+        <div id="intro-video" class="intro-video" data-video="Ruf-IFGZVMI" style="position: relative; width: 100%; max-width: 184px; aspect-ratio: 9 / 16; border-radius: 20px; overflow: hidden; background: #10262b; box-shadow: 0 22px 46px -22px rgba(15,76,86,0.55);">
+          <button type="button" class="intro-video-play" aria-label="Play Dr Vivienne Heyhoe's intro video" style="position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; padding: 0; border: none; cursor: pointer; background: none; -webkit-tap-highlight-color: transparent;">
+            <img src="assets/img/intro-thumb.jpg" alt="Dr Vivienne Heyhoe" width="450" height="800" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+            <span aria-hidden="true" style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: linear-gradient(180deg, rgba(16,38,43,0) 45%, rgba(16,38,43,0.28));">
+              <span style="width: 58px; height: 58px; border-radius: 999px; background: rgba(255,115,56,0.96); display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 22px rgba(0,0,0,0.28);">
+                <svg width="21" height="24" viewBox="0 0 20 24" aria-hidden="true"><path d="M0 2.2v19.6c0 .93 1.02 1.5 1.8 1.02L19 13.28c.74-.46.74-1.54 0-2L1.8 1.18C1.02.7 0 1.27 0 2.2z" fill="#ffffff"/></svg>
+              </span>
             </span>
+          </button>
+        </div>
+        <!-- Founder credibility panel -->
+        <div class="intro-panel" style="display: flex; flex-direction: column; justify-content: center; gap: 14px; min-width: 0; background: #e0eef0; border-radius: 20px; padding: clamp(22px, 2.4vw, 32px);">
+          <span style="display: inline-flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: #187283;">
+            <span style="width: 22px; height: 2px; background: #187283; display: inline-block;"></span>
+            From the founder
+            <span style="width: 22px; height: 2px; background: #187283; display: inline-block;"></span>
           </span>
-        </button>
+          <p style="margin: 0; font-size: clamp(21px, 2vw, 25px); line-height: 1.18; font-weight: 700; letter-spacing: -0.015em; color: #10262b; text-wrap: balance;">The programme I wish I'd had.</p>
+          <p style="margin: 0; font-size: 16px; line-height: 1.65; color: #33474c; text-wrap: pretty;">Two exits taught me what buyers actually pay for. Seven weeks to build it into your business.</p>
+        </div>
       </div>
       </div>
       <div class="hero-card" style="background: #ffffff; border: 1px solid #eef2f2; border-radius: 28px; padding: 32px 30px; box-shadow: 0 34px 60px -34px rgba(15,76,86,0.32);">
-        <span style="display: inline-flex; align-items: center; gap: 8px; font-size: 11.5px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: #187283;">Inside the programme</span>
+        <span style="display: inline-flex; align-items: center; gap: 8px; font-size: 11.5px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: #187283;"><span style="width: 18px; height: 2px; background: #187283; display: inline-block;"></span>Inside the programme<span style="width: 18px; height: 2px; background: #187283; display: inline-block;"></span></span>
         <div style="margin-top: 18px; display: flex; flex-direction: column;">
           <div style="display: flex; gap: 14px; align-items: flex-start; padding: 16px 0; border-bottom: 1px solid #f0f4f4;">
             <span style="width: 26px; height: 26px; border-radius: 8px; background: #fff1e9; color: #ff7338; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; flex: none;">✓</span>
