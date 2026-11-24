@@ -11,6 +11,12 @@
   to = "/privacy.html"
   status = 200
 
+# Grow London workshop page ("Register your interest").
+[[redirects]]
+  from = "/workshop"
+  to = "/workshop.html"
+  status = 200
+
 # Long-lived, safe-to-cache assets (stable filenames).
 [[headers]]
   for = "/assets/fonts/*"

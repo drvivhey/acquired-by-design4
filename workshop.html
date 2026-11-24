@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <script>
+    /* Clear any stale service worker / caches left by an earlier version of
+       this site. Safe no-op otherwise. */
+    (function () {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations()
+          .then(function (regs) { regs.forEach(function (r) { r.unregister(); }); })
+          .catch(function () {});
+      }
+    })();
+  </script>
+
+  <title>Make your business less dependent on you | Wellspring workshop</title>
+  <meta name="description" content="A 90-minute online group workshop for business owners. See where the business depends on you and choose one practical change.">
+  <meta name="author" content="Wellspring Exit Advisory">
+  <meta name="theme-color" content="#0f4c56">
+  <link rel="canonical" href="https://acquiredbydesign.wellspringexit.com/workshop">
+
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/img/logo.png">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Wellspring">
+  <meta property="og:title" content="Make your business less dependent on you">
+  <meta property="og:description" content="A 90-minute online group workshop for business owners. See where the business depends on you and choose one practical change.">
+  <meta property="og:url" content="https://acquiredbydesign.wellspringexit.com/workshop">
+  <meta property="og:image" content="https://acquiredbydesign.wellspringexit.com/assets/exit-ready-september.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Make your business less dependent on you">
+  <meta name="twitter:description" content="A 90-minute online group workshop for business owners. See where the business depends on you and choose one practical change.">
+  <meta name="twitter:image" content="https://acquiredbydesign.wellspringexit.com/assets/exit-ready-september.jpg">
+
+  <link rel="stylesheet" href="assets/css/fonts.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; overflow-x: clip; }
+    body { margin: 0; background: #fbf7f2; font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif; color: #33474c; font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    img { display: block; max-width: 100%; }
+    h1, h2, p { margin: 0; }
+    h1, h2 { color: #10262b; font-weight: 700; letter-spacing: -0.02em; text-wrap: balance; }
+    h2 { font-size: clamp(28px, 3.4vw, 40px); line-height: 1.15; }
+    h2.h2-sm { font-size: clamp(24px, 2.6vw, 30px); line-height: 1.2; }
+    a { color: #187283; }
+
+    .wrap { max-width: 1200px; margin: 0 auto; padding-left: clamp(20px, 4vw, 56px); padding-right: clamp(20px, 4vw, 56px); }
+    .section { padding-top: clamp(40px, 5vw, 64px); padding-bottom: clamp(40px, 5vw, 64px); }
+
+    /* Buttons (Wellspring design system) */
+    .btn { display: inline-flex; align-items: center; justify-content: center; font-family: inherit; font-weight: 600; letter-spacing: 0.005em; line-height: 1; text-decoration: none; white-space: nowrap; border: 1px solid transparent; cursor: pointer; transition: transform 120ms cubic-bezier(0.22,0.61,0.36,1), background 200ms, filter 200ms; }
+    .btn:active { transform: scale(0.975); }
+    .btn-sm { height: 36px; padding: 0 14px; font-size: 14px; border-radius: 10px; }
+    .btn-lg { height: 56px; padding: 0 28px; font-size: 17px; border-radius: 16px; }
+    .btn-primary { background: #187283; color: #ffffff; box-shadow: 0 12px 30px rgba(24, 114, 131, 0.24); }
+    .btn-primary:hover { filter: brightness(0.93); color: #ffffff; }
+    .btn-secondary { background: #e0eef0; color: #0f4c56; }
+    .btn-secondary:hover { background: #cfe6e9; color: #0f4c56; }
+    .btn-block { width: 100%; }
+    .btn[disabled] { opacity: 0.6; cursor: wait; }
+    a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid #219b94; outline-offset: 2px; }
+
+    .badge { display: inline-flex; align-items: center; padding: 4px 11px; font-size: 13px; font-weight: 600; letter-spacing: 0.01em; line-height: 1.4; border-radius: 999px; white-space: nowrap; }
+    .badge-sky { background: #e0eef0; color: #14606d; }
+    .badge-amber { background: #fff3d4; color: #946100; }
+
+    .card { background: #ffffff; border-radius: 20px; padding: 32px; box-shadow: 0 2px 6px rgba(16, 38, 43, 0.07); min-width: 0; }
+    .card-mist { background: #e0eef0; box-shadow: none; }
+
+    /* Header */
+    .site-header { background: #fbf7f2; border-bottom: 1px solid #dde6e7; }
+    .site-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-top: 16px; padding-bottom: 16px; }
+
+    /* Hero */
+    .hero { position: relative; overflow: hidden; background: #0f4c56; color: #fdfffe; }
+    .hero .wrap { position: relative; display: flex; flex-wrap: wrap; align-items: center; gap: 48px; padding-top: clamp(56px, 8vw, 96px); padding-bottom: clamp(56px, 8vw, 96px); }
+    .hero-copy { flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 24px; }
+    .hero h1 { font-size: clamp(38px, 5.2vw, 66px); line-height: 1.06; letter-spacing: -0.025em; color: #fdfffe; }
+    .hero h1 span { color: #a8dee5; }
+    .hero-lead { max-width: 560px; font-size: clamp(18px, 1.6vw, 21px); line-height: 1.55; color: #b9d3d7; }
+    .hero-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 20px 28px; margin-top: 8px; }
+    .price { display: flex; flex-direction: column; line-height: 1.35; }
+    .price strong { font-size: 28px; font-weight: 700; color: #fdfffe; }
+    .price span { font-size: 15px; color: #b9d3d7; }
+    .ring { position: absolute; box-sizing: border-box; border-radius: 50%; border: 1.5px solid rgba(168, 222, 229, 0.2); }
+
+    .orbit-col { flex: 1 1 340px; display: flex; justify-content: center; }
+    .orbit { position: relative; width: 340px; height: 340px; flex: none; }
+    .orbit .you { position: absolute; left: 130px; top: 130px; width: 80px; height: 80px; border-radius: 50%; background: #a8dee5; display: flex; align-items: center; justify-content: center; font-size: 19px; font-weight: 700; color: #0b3941; }
+    .pill { position: absolute; transform: translate(-50%, -50%); display: flex; align-items: center; gap: 7px; padding: 6px 13px; border-radius: 999px; background: #0f4c56; border: 1.5px solid #a8dee5; font-size: 14px; font-weight: 500; line-height: 1.3; color: #e0eef0; white-space: nowrap; }
+    .pill::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #ffc33c; }
+
+    /* How it works */
+    .how { display: flex; flex-wrap: wrap; gap: 16px 64px; align-items: baseline; padding-top: clamp(56px, 8vw, 96px); }
+    .how h2 { flex: 1 1 320px; }
+    .how p { flex: 1.6 1 420px; max-width: 680px; font-size: clamp(19px, 1.7vw, 22px); line-height: 1.55; }
+
+    /* Outcomes */
+    .stack { display: flex; flex-direction: column; gap: 32px; }
+    .cards { display: flex; flex-wrap: wrap; gap: 20px; }
+    .cards .card { flex: 1 1 280px; display: flex; flex-direction: column; gap: 14px; }
+    .num { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 15px; font-weight: 600; color: #187283; }
+    .cards p { font-size: 19px; line-height: 1.5; font-weight: 500; color: #10262b; }
+
+    /* Who / details */
+    .two { display: flex; flex-wrap: wrap; gap: 20px; }
+    .two .card { display: flex; flex-direction: column; gap: 14px; }
+    .two .card-mist { flex: 1 1 340px; }
+    .two .card-details { flex: 1.3 1 400px; }
+    .two p { font-size: 18px; }
+    .dots { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .dots li { display: flex; gap: 12px; align-items: baseline; }
+    .dots li::before { content: ""; flex: none; width: 8px; height: 8px; border-radius: 50%; background: #187283; transform: translateY(-2px); }
+    .dots strong { font-weight: 700; color: #10262b; }
+
+    /* Host */
+    .host { display: flex; flex-wrap: wrap; align-items: center; gap: 28px 40px; }
+    .host img { flex: none; width: 176px; height: 176px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 6px #e0eef0; }
+    .host-copy { flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 10px; }
+    .host-copy p { font-size: 18px; }
+
+    /* Register */
+    .register { position: relative; overflow: hidden; background: #0f4c56; color: #fdfffe; }
+    .register-inner { position: relative; max-width: 820px; margin: 0 auto; padding: clamp(56px, 8vw, 96px) clamp(20px, 4vw, 56px); display: flex; flex-direction: column; align-items: center; gap: 22px; text-align: center; }
+    .register h2 { font-size: clamp(30px, 3.8vw, 44px); color: #fdfffe; }
+    .register-lead { max-width: 560px; font-size: 19px; color: #b9d3d7; }
+    .form-card { width: 100%; max-width: 480px; margin-top: 8px; text-align: left; background: #ffffff; border-radius: 20px; padding: 32px; box-shadow: 0 18px 44px rgba(16, 38, 43, 0.1); color: #33474c; }
+    .form-card form { display: flex; flex-direction: column; gap: 18px; margin: 0; }
+    .field { display: flex; flex-direction: column; gap: 7px; }
+    .field label { font-size: 14px; font-weight: 600; color: #10262b; letter-spacing: 0.005em; }
+    .field input { width: 100%; height: 54px; padding: 0 16px; font-family: inherit; font-size: 16px; color: #10262b; background: #ffffff; border: 1.5px solid #dde6e7; border-radius: 14px; transition: border-color 200ms; }
+    .field input:hover { border-color: #93c4cb; }
+    .field input:focus { border-color: #219b94; }
+    .form-status { text-align: center; }
+    .form-status .tick { width: 48px; height: 48px; margin: 0 auto 14px; border-radius: 999px; background: #219b94; color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 24px; }
+    .form-status strong { display: block; font-size: 18px; font-weight: 600; color: #10262b; }
+    .form-error { font-size: 14px; color: #c24a17; text-align: center; }
+    .site-footer { margin-top: 28px; display: flex; flex-direction: column; align-items: center; gap: 14px; font-size: 14px; }
+    .site-footer a { color: #b9d3d7; }
+    .site-footer a:hover { color: #fdfffe; }
+
+    @media (max-width: 560px) {
+      .card, .form-card { padding: 24px; }
+      .host img { width: 140px; height: 140px; }
+      .hero-cta .btn { width: 100%; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap">
+      <img src="assets/img/logo.png" alt="Wellspring" style="height: 36px; width: auto;">
+      <a class="btn btn-sm btn-primary" href="#register">Register your interest</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="ring" aria-hidden="true" style="right: -220px; top: -220px; width: 640px; height: 640px; border-color: rgba(168, 222, 229, 0.1);"></div>
+      <div class="wrap">
+        <div class="hero-copy">
+          <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+            <span class="badge badge-sky">90 minutes</span>
+            <span class="badge badge-sky">Online, live, group session</span>
+            <span class="badge badge-amber">6 to 8 places</span>
+          </div>
+          <h1>Make your business <span>less dependent on you</span></h1>
+          <p class="hero-lead">A 90-minute online group workshop for business owners. See where the business depends on you and choose one practical change.</p>
+          <div class="hero-cta">
+            <a class="btn btn-lg btn-secondary" href="#register">Register your interest</a>
+            <div class="price">
+              <strong>£95</strong>
+              <span>Next date to be announced</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="orbit-col" aria-hidden="true">
+          <div class="orbit">
+            <div class="ring" style="left: 10px; top: 10px; width: 320px; height: 320px;"></div>
+            <div class="ring" style="left: 55px; top: 55px; width: 230px; height: 230px; border-color: rgba(168, 222, 229, 0.3);"></div>
+            <div class="ring" style="left: 100px; top: 100px; width: 140px; height: 140px; border-color: rgba(168, 222, 229, 0.42);"></div>
+            <div class="you">You</div>
+            <div class="pill" style="left: 130px; top: 227px;">Tasks</div>
+            <div class="pill" style="left: 258px; top: 244px;">Decisions</div>
+            <div class="pill" style="left: 90px; top: 31px;">Relationships</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap">
+      <div class="how" style="padding-bottom: clamp(40px, 5vw, 64px);">
+        <h2>How the workshop works</h2>
+        <p>This is a working session rather than a talk. Together we will work on your own business throughout, with prompts from me along the way.</p>
+      </div>
+    </section>
+
+    <section class="wrap section stack">
+      <h2>You will leave with</h2>
+      <div class="cards">
+        <div class="card">
+          <span class="num">01</span>
+          <p>A written map of the tasks, decisions and relationships that rely on you.</p>
+        </div>
+        <div class="card">
+          <span class="num">02</span>
+          <p>One practical change to start on, which you choose for your business.</p>
+        </div>
+        <div class="card">
+          <span class="num">03</span>
+          <p>A first step for the next 30 days.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap section">
+      <div class="two">
+        <div class="card card-mist">
+          <h2 class="h2-sm">Who it is for</h2>
+          <p>Owners of businesses who may want to build value by selling or being acquired one day and are unsure which dependence on you matters most.</p>
+        </div>
+        <div class="card card-details">
+          <h2 class="h2-sm">Details</h2>
+          <ul class="dots">
+            <li><span>Online, live, group session. 6 to 8 places.</span></li>
+            <li><span>Next date to be announced.</span></li>
+            <li><span><strong>Price £95.</strong> It runs with a minimum of 6 bookings.</span></li>
+            <li><span>Does not include an individual review, written report or follow-up.</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap section" style="padding-bottom: clamp(56px, 8vw, 96px);">
+      <div class="card host">
+        <img src="assets/img/vivienne-heyhoe.jpg" alt="Dr Vivienne Heyhoe" width="176" height="176">
+        <div class="host-copy">
+          <h2 class="h2-sm">About your host</h2>
+          <p>Dr Vivienne Heyhoe is an exit and acquisitions adviser who has exited two businesses and worked within Asset and Wealth Management at JPMorgan Chase. She helps owners increase what their business is worth and prepare it for acquisition.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="register" id="register">
+      <div class="ring" aria-hidden="true" style="left: -180px; bottom: -260px; width: 560px; height: 560px; border-color: rgba(168, 222, 229, 0.12);"></div>
+      <div class="ring" aria-hidden="true" style="left: -90px; bottom: -170px; width: 380px; height: 380px; border-color: rgba(168, 222, 229, 0.16);"></div>
+      <div class="register-inner">
+        <h2>Register your interest</h2>
+        <p class="register-lead">Leave your name and email details to be invited to the next workshop.</p>
+
+        <div class="form-card">
+          <form id="interest-form">
+            <div class="field">
+              <label for="interest-name">Name</label>
+              <input id="interest-name" name="fullName" type="text" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="interest-email">Email</label>
+              <input id="interest-email" name="email" type="email" autocomplete="email" required>
+            </div>
+            <div class="field">
+              <label for="interest-business">Business name</label>
+              <input id="interest-business" name="businessName" type="text" autocomplete="organization" required>
+            </div>
+            <button class="btn btn-lg btn-primary btn-block" type="submit" style="margin-top: 4px;">Register your interest</button>
+            <p class="form-error" id="interest-error" role="alert" hidden></p>
+          </form>
+          <div class="form-status" id="interest-status" role="status" hidden>
+            <span class="tick" aria-hidden="true">&#10003;</span>
+            <strong>Thank you. You'll be invited to the next workshop.</strong>
+          </div>
+        </div>
+
+        <footer class="site-footer">
+          <img src="assets/img/logo-footer.png" alt="Wellspring" style="height: 30px; width: auto;">
+          <a href="/privacy">Privacy</a>
+        </footer>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/js/workshop.js" defer></script>
+</body>
+</html>
